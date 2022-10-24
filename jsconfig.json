@@ -1,5 +1,3 @@
-// import할때 경로 설정을 좀더 편하게!
-
 {
   "compilerOptions": {
     "baseUrl": "src"
