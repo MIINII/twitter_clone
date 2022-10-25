@@ -6,6 +6,7 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [newAccount, setNewAccount] = useState(true);
+  const [err, setErr] = useState('');
 
   // onChange Function 두개 안만들어도됨 ㅋ
   const onChange = e => {
@@ -31,9 +32,9 @@ const Auth = () => {
         // login
         data = await signInWithEmailAndPassword(authService, email, password);
       }
-      console.log('🚀 ⁝ onSubmit ⁝ data', data)
+      console.log('🚀 ⁝ onSubmit ⁝ data', data);
     } catch (err) {
-      console.log('🚀 ⁝ onSubmit ⁝ err', err);
+      setErr(err.message);
     }
   };
 
@@ -43,6 +44,7 @@ const Auth = () => {
         <input name='email' type='text' placeholder='Email' required defaultValue={email} onChange={onChange} />
         <input name='password' type='password' placeholder='Password' required defaultValue={password} onChange={onChange} />
         <input type='submit' value={newAccount ? '새로운 계정 만들기' : '로그인'} />
+        {err}
       </form>
 
       <div>
