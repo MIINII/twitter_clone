@@ -19,7 +19,7 @@ const App = () => {
         setIsLoggedIn(false);
       }
       setInit(true);
-    });
+    }); 
   }, []);
 
   return (

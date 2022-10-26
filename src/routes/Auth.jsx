@@ -38,6 +38,10 @@ const Auth = () => {
     }
   };
 
+  const toggleAccount = () => {
+    setNewAccount(prev => !prev);
+  };
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -46,6 +50,8 @@ const Auth = () => {
         <input type='submit' value={newAccount ? '새로운 계정 만들기' : '로그인'} />
         {err}
       </form>
+
+      <span onClick={toggleAccount}>{newAccount ? '로그인' : '새로운 계정 만들기'}</span>
 
       <div>
         <button>구글로 로그인하기</button>
