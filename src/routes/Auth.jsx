@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authService } from '../fBase';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -42,6 +42,23 @@ const Auth = () => {
     setNewAccount(prev => !prev);
   };
 
+  const onSocialClick = async e => {
+    const {
+      target: { name },
+    } = e;
+
+    let provider;
+
+    if (name === 'google') {
+      // 구글일떄
+      provider = new GoogleAuthProvider();
+    } else if (name === 'github') {
+      // 깃허브일떄
+      provider = new GithubAuthProvider();
+    }
+    await signInWithPopup(authService, provider);
+  };
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -54,8 +71,12 @@ const Auth = () => {
       <span onClick={toggleAccount}>{newAccount ? '로그인' : '새로운 계정 만들기'}</span>
 
       <div>
-        <button>구글로 로그인하기</button>
-        <button>깃허브로 로그인하기</button>
+        <button name='google' onClick={onSocialClick}>
+          구글로 로그인하기
+        </button>
+        <button name='github' onClick={onSocialClick}>
+          깃허브로 로그인하기
+        </button>
       </div>
     </>
   );
